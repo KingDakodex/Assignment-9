@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 
@@ -27,12 +29,12 @@ enum City
 // class to track the cities  in a Adjacency List Structure
 class Map
 {
-private: 
+private:
 	//int Vertices = 12;
 
 	// Vector to store data for cities and their distances
 	vector<vector<pair<int, int>>> adjList;
-	
+
 
 public:
 
@@ -50,3 +52,9 @@ public:
 	void DisplayMap();
 
 };
+
+// function to perform a BFS traversal
+vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start);
+
+// function adds cities to Adjacency Matrix and calls BFS traversal function
+void BFS();
