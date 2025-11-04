@@ -4,15 +4,18 @@
 vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start) 
 {
 	// initialize Adjacency Matrix structure
-	vector<vector<int>> adjMatrix(v, vector<int>(v, 0));
+	vector<vector<int>> adjMatrix(v, vector<int>(v, INT_MAX));
 
 	// use edges vector to input data in Adjacency Matrix
 	for (auto& edge : edges) 
 	{
 		int a = edge[0];
 		int b = edge[1];
-		adjMatrix[a][b] = 1;
-		adjMatrix[b][a] = 1;
+		int d = edge[2];
+
+		// store distances between cities in Adjacency Matrix
+		adjMatrix[a][b] = d;
+		adjMatrix[b][a] = d;
 	}
 
 	// create vector to keep track of visited cities
@@ -37,12 +40,25 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 		// add visited city to vector with BFS order
 		bfsOrder.push_back(curr);
 
-		// visit unvisited cities
-		for (int i = 0; i < v; i++) {
-			if (adjMatrix[curr][i] == 1 && !visited[i]) {
-				visited[i] = true;
-				cityQueue.push(i);
+		// insert all unvisited cities adjacent to current city in vector
+		vector<pair<int, int>> adjCities;
+		for (int i = 0; i < v; i++)
+		{
+			if (adjMatrix[curr][i] != INT_MAX && !visited[i])
+			{
+				adjCities.push_back({ i, adjMatrix[curr][i] });
 			}
+		}
+
+		// sort adjacent cities by distance
+		sort(adjCities.begin(), adjCities.end(), [](auto& a, auto& b) { return a.second < b.second; });
+
+		// visit adjacent and unvisited cities, traveling to the closest city first
+		for (auto& a : adjCities)
+		{
+			int nextCity = a.first;
+			visited[nextCity] = true;
+			cityQueue.push(nextCity);
 		}
 	}
 
