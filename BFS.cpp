@@ -1,6 +1,6 @@
 #include "Header.h"
 
-// function to perform a BFS
+// function to perform a BFS traversal
 vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start) 
 {
 	// initialize Adjacency Matrix structure
