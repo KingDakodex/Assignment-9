@@ -49,10 +49,11 @@ public:
 
 	// display all cities and their distances to each other
 	void DisplayMap();
+
 };
 
 // function to perform a BFS
-vector<int> BFSTraversal(int v, vector<vector<int>>& edges, int src, vector<int> distances);
+vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start);
 
 // function adds cities to Adjacency Matrix and performs BFS traversal
 void BFS();

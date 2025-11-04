@@ -55,17 +55,19 @@ void BFS()
 	// initialize size of vector
 	int v = 13;
 	
-	// adds all edges of the map to vector
-	vector<vector<int>> edges = { {Seattle, Chicago}, {Chicago, Boston}, {Boston, NewYork}, {NewYork, Chicago},
-		{Chicago, Denver}, {Denver, Seattle}, {Seattle, SanFrancisco}, {Chicago, KansasCity}, {KansasCity, Denver},
-		{KansasCity, LosAngeles}, {KansasCity, Dallas}, {KansasCity, Atlanta}, {KansasCity, NewYork}, {SanFrancisco, Denver},
-		{SanFrancisco, LosAngeles}, {LosAngeles, Denver}, {LosAngeles, Dallas}, {Atlanta, Dallas}, {Atlanta, NewYork},
-		{Atlanta, Houston}, {Atlanta, Miami}, {Miami, Houston}, {Houston, Dallas} };
-	
+	// adds all edges with distances to vector
+	vector<vector<int>> edges = { {Seattle, Chicago, 2097}, {Chicago, Boston, 983}, {Boston, NewYork, 214}, {NewYork, Chicago, 787},
+		{Chicago, Denver, 1003}, {Denver, Seattle, 1331}, {Seattle, SanFrancisco, 807}, {Chicago, KansasCity, 533}, {KansasCity, Denver, 599},
+		{KansasCity, LosAngeles, 1663}, {KansasCity, Dallas, 496}, {KansasCity, Atlanta, 864}, {KansasCity, NewYork, 1260}, {SanFrancisco, Denver, 1267},
+		{SanFrancisco, LosAngeles, 381}, {LosAngeles, Denver, 1015}, {LosAngeles, Dallas, 1435}, {Atlanta, Dallas, 781}, {Atlanta, NewYork, 888},
+		{Atlanta, Houston, 810}, {Atlanta, Miami, 661}, {Miami, Houston, 1187}, {Houston, Dallas, 239} };
+
 	// initialize starting city
 	int start = Denver;
 
 	// call function to perform BFS traversal
+	//vector<int> traversal = bfsTraversal(v, edges, start);
+
 	vector<int> traversal = bfsTraversal(v, edges, start);
 
 	cout << endl << "BFS order:" << endl;
@@ -112,6 +114,9 @@ void BFS()
 			break;
 		case Miami:
 			cityName = "Miami";
+			break;
+		default:
+			cityName = "Error - out of bounds";
 			break;
 		}
 
