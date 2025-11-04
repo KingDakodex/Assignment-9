@@ -21,7 +21,7 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 	// create vector to keep track of visited cities
 	vector<bool> visited(v, false);
 	
-	// BFS order
+	// create vector to store BFS order
 	vector<int> bfsOrder;
 	
 	// create queue of cities to visit
