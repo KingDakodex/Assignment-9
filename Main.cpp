@@ -6,5 +6,7 @@ int main()
 
 	UnitedStates.DisplayMap();
 
+	BFS();
+
 	return 0;
 }
