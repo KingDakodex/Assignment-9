@@ -34,6 +34,7 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 	// visit all cities and remove visited cities from queue
 	while (!cityQueue.empty()) 
 	{
+		// remove current city from queue
 		int curr = cityQueue.front();
 		cityQueue.pop();
 		
@@ -81,9 +82,7 @@ void BFS()
 	// initialize starting city
 	int start = Denver;
 
-	// call function to perform BFS traversal
-	//vector<int> traversal = bfsTraversal(v, edges, start);
-
+	// calls function to perform BFS traversal
 	vector<int> traversal = bfsTraversal(v, edges, start);
 
 	cout << endl << "BFS order:" << endl;
