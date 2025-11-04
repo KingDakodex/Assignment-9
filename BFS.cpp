@@ -66,7 +66,7 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 	return bfsOrder;
 }
 
-// function adds cities to Adjacency Matrix and performs BFS traversal
+// function adds cities to Adjacency Matrix and calls BFS traversal function
 void BFS()
 {
 	// initialize size of vector
