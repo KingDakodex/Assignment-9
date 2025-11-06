@@ -1,10 +1,65 @@
 #include "Header.h"
 
+// function to convert integers 1-12 to corresponding city name
+string GetCityName(int i)
+{
+	string cityName = "";
+
+	switch (i)
+	{
+	case Seattle:
+		cityName = "Seattle";
+		break;
+	case Chicago:
+		cityName = "Chicago";
+		break;
+	case Boston:
+		cityName = "Boston";
+		break;
+	case SanFrancisco:
+		cityName = "San Francisco";
+		break;
+	case Denver:
+		cityName = "Denver";
+		break;
+	case NewYork:
+		cityName = "New York";
+		break;
+	case LosAngeles:
+		cityName = "Los Angeles";
+		break;
+	case KansasCity:
+		cityName = "Kansas City";
+		break;
+	case Atlanta:
+		cityName = "Atlanta";
+		break;
+	case Dallas:
+		cityName = "Dallas";
+		break;
+	case Houston:
+		cityName = "Houston";
+		break;
+	case Miami:
+		cityName = "Miami";
+		break;
+	default:
+		cityName = "Error - out of bounds";
+		break;
+	}
+
+	return cityName;
+}
+
 // function to perform a BFS traversal
 vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start) 
 {
 	// initialize Adjacency Matrix structure
 	vector<vector<int>> adjMatrix(v, vector<int>(v, INT_MAX));
+
+	// create discovery edge and cross edge vectors to store visited edges
+	vector<vector<bool>> discovery(v, vector<bool>(v, false));
+	vector<vector<bool>> cross(v, vector<bool>(v, false));
 
 	// use edges vector to input data in Adjacency Matrix
 	for (auto& edge : edges) 
@@ -31,6 +86,9 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 	visited[start] = true;
 	cityQueue.push(start);
 
+	// initialize total discovery distance variable
+	int discoveryDist = 0;
+
 	// visit all cities and remove visited cities from queue
 	while (!cityQueue.empty()) 
 	{
@@ -45,9 +103,30 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 		vector<pair<int, int>> adjCities;
 		for (int i = 0; i < v; i++)
 		{
-			if (adjMatrix[curr][i] != INT_MAX && !visited[i])
+			if (adjMatrix[curr][i] != INT_MAX)
 			{
-				adjCities.push_back({ i, adjMatrix[curr][i] });
+				if (!visited[i])
+				{
+					// update edge in discovery vector
+					discovery[curr][i] = true;
+					
+					// output discovery edge
+					cout << "Discovery Edge: " << GetCityName(curr) << " to " << GetCityName(i) << endl;
+					
+					// update total distance traveled on discovery edges
+					discoveryDist += adjMatrix[curr][i];
+
+					// add visited city to vector
+					adjCities.push_back({ i, adjMatrix[curr][i] });
+				}
+				else if (!discovery[curr][i] && !cross[curr][i])
+				{
+					// update edge in cross vector
+					cross[curr][i] = true;
+
+					// output cross edge
+					cout << "Cross Edge: " << GetCityName(curr) << " to " << GetCityName(i) << endl;
+				}
 			}
 		}
 
@@ -63,12 +142,18 @@ vector<int> bfsTraversal(int v, vector<vector<int>>& edges, int start)
 		}
 	}
 
+	// output total distance traveled on discovery edges
+	cout << endl << "Total distance traveled on discovery edges: " << discoveryDist << endl;
+
 	return bfsOrder;
 }
 
 // function adds cities to Adjacency Matrix and calls BFS traversal function
 void BFS()
 {
+	cout << endl << "Part B Programmed by Hailey Driscoll" << endl << endl;
+	cout << "Performing BFS..." << endl;
+	
 	// initialize size of vector
 	int v = 13;
 	
@@ -90,50 +175,8 @@ void BFS()
 	// output BFS order
 	for (int i : traversal) 
 	{
-		string cityName = "";
-		
-		switch (i)
-		{
-		case Seattle:
-			cityName = "Seattle";
-			break;
-		case Chicago:
-			cityName = "Chicago";
-			break;
-		case Boston:
-			cityName = "Boston";
-			break;
-		case SanFrancisco:
-			cityName = "San Francisco";
-			break;
-		case Denver:
-			cityName = "Denver";
-			break;
-		case NewYork:
-			cityName = "New York";
-			break;
-		case LosAngeles:
-			cityName = "Los Angeles";
-			break;
-		case KansasCity:
-			cityName = "Kansas City";
-			break;
-		case Atlanta:
-			cityName = "Atlanta";
-			break;
-		case Dallas:
-			cityName = "Dallas";
-			break;
-		case Houston:
-			cityName = "Houston";
-			break;
-		case Miami:
-			cityName = "Miami";
-			break;
-		default:
-			cityName = "Error - out of bounds";
-			break;
-		}
+		// use function to get city name
+		string cityName = GetCityName(i);
 
 		cout << cityName;
 
